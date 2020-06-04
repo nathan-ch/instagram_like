@@ -3,8 +3,10 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect,
   Link
 } from "react-router-dom";
+import { useSelector } from 'react-redux'
 import './App.css';
 import { Register } from './_Pages/Register';
 import { EditProfile } from './_Pages/EditProfile';
@@ -12,32 +14,36 @@ import { Image } from './_Pages/Image';
 import { Login } from './_Pages/Login';
 import { Profile } from './_Pages/Profile';
 import { Home } from './_Pages/Home';
+import NavNav from './_Components/NavNav';
 
 
-function App() {
+const App = () => {
+  const isAuthenticated = useSelector(state => state.authReducer.isAuthenticated)
+
   return (
-    <Router>
-      <Switch>
-        <Route path="/edit_profile">
-          <EditProfile />
-        </Route>
-        <Route path={`/image/:id`}>
-          <Image />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/register">
-          <Register />
-        </Route>
-        <Route path="/profile">
-          <Profile />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
-    </Router>
+      <Router>
+        <NavNav />
+        <Switch>
+          <Route path="/edit_profile">
+            <EditProfile />
+          </Route>
+          <Route path={`/image/:id`}>
+            <Image />
+          </Route>
+          <Route path="/login">
+            {isAuthenticated ? <Redirect to="/" /> : <Login />}
+          </Route>
+          <Route path="/register">
+          {isAuthenticated ? <Redirect to="/" /> : <Register />}
+          </Route>
+          <Route path="/profile">
+            <Profile />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </Router>
   );
 }
 

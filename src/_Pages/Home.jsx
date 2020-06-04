@@ -4,11 +4,11 @@ import {
     Switch,
     Route,
     Link
-  } from "react-router-dom";
+} from "react-router-dom";
 
-export const Home = () =>{
+export const Home = () => {
 
-    return(
+    return (
         <div>
             <h1>THPgram</h1>
             <Link to={'image/1'}>image1</Link>

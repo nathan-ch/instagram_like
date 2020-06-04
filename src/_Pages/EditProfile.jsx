@@ -1,8 +1,8 @@
 import React from 'react';
 
-export const EditProfile = () =>{
+export const EditProfile = () => {
 
-    return(
+    return (
 
         <h1>EditProfile</h1>
     )
