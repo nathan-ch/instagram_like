@@ -1,13 +1,12 @@
-import { combineReducers } from 'redux'
 import {
-    LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS
+    LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS,REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE, DELETE_REQUEST, DELETE_SUCCESS, DELETE_FAILURE
   } from './Type';
 import Cookies from 'js-cookie';
 
   const initialState={
     isFetching: false,
-    isAuthenticated: Cookies.get('id_token') ? true : false,
-    userToken : Cookies.get('id_token') ? Cookies.get('id_token') : false,
+    isAuthenticated: Cookies.get('userToken') ? true : false,
+    userToken : Cookies.get('userToken') ? Cookies.get('userToken') : false,
     user : Cookies.get('user') ? Cookies.get('user') : false
 
   }
@@ -24,7 +23,7 @@ import Cookies from 'js-cookie';
         isFetching: false,
         isAuthenticated: true,
         errorMessage: '',
-        userToken : Cookies.get('id_token'),
+        userToken : Cookies.get('userToken'),
         user : Cookies.get('user')
       })
     case LOGIN_FAILURE:
@@ -38,6 +37,42 @@ import Cookies from 'js-cookie';
         isAuthenticated: false,
         userToken : false,
         user : false,
+      })
+      case REGISTER_REQUEST:
+      return Object.assign({}, state, {
+        isFetching: true,
+        isAuthenticated: false,
+      })
+    case REGISTER_SUCCESS:
+      return Object.assign({}, state, {
+        isFetching: false,
+        isAuthenticated: false,
+        errorMessage: '',
+      })
+    case REGISTER_FAILURE:
+      return Object.assign({}, state, {
+        isFetching: false,
+        isAuthenticated: false,
+        errorMessage: action.message
+      })
+      case DELETE_REQUEST:
+      return Object.assign({}, state, {
+        isFetching: true,
+        isAuthenticated: true,
+      })
+    case DELETE_SUCCESS:
+      return Object.assign({}, state, {
+        isFetching: false,
+        isAuthenticated: false,
+        userToken : false,
+        user: false,
+        errorMessage: '',
+      })
+    case DELETE_FAILURE:
+      return Object.assign({}, state, {
+        isFetching: false,
+        isAuthenticated: true,
+        errorMessage: action.message
       })
     default:
       return state

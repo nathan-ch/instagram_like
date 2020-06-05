@@ -21,29 +21,29 @@ const App = () => {
   const isAuthenticated = useSelector(state => state.authReducer.isAuthenticated)
 
   return (
-      <Router>
-        <NavNav />
-        <Switch>
-          <Route path="/edit_profile">
-            <EditProfile />
-          </Route>
-          <Route path={`/image/:id`}>
-            <Image />
-          </Route>
-          <Route path="/login">
-            {isAuthenticated ? <Redirect to="/" /> : <Login />}
-          </Route>
-          <Route path="/register">
+    <Router>
+      <NavNav />
+      <Switch>
+        <Route path="/edit_profile">
+        {isAuthenticated ? <EditProfile/> : <Login />}
+        </Route>
+        <Route path={`/image/:id`}>
+          <Image />
+        </Route>
+        <Route path="/login">
+          {isAuthenticated ? <Redirect to="/" /> : <Login />}
+        </Route>
+        <Route path="/register">
           {isAuthenticated ? <Redirect to="/" /> : <Register />}
-          </Route>
-          <Route path="/profile">
-            <Profile />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </Router>
+        </Route>
+        <Route path="/profile">
+        {isAuthenticated ? <Profile/> : <Login />}
+        </Route>
+        <Route path="/">
+          {isAuthenticated ? <Home/> : <Login />}
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 

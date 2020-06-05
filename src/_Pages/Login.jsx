@@ -1,4 +1,10 @@
 import React from 'react';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
 import { loginUser } from '../_Redux/_Authentication/Actions';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { useDispatch, useSelector } from 'react-redux'
@@ -41,9 +47,9 @@ export const Login = (props) => {
 
                 <Form.Item>
                     <Button type="primary" htmlType="submit" className="login-form-button">
-                        Log in
-        </Button>
-        Or <a href="">register now!</a>
+                        Se connecter
+                    </Button>
+                     Ou <Link to="/register">S'inscrire maintenant</Link>
                 </Form.Item>
             </Form>
         </div>
