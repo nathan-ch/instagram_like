@@ -22,7 +22,7 @@ export const requestGetImage = () => {
     return {
       type: GET_IMAGE_FAILURE,
       isFetching: false,
-      images: false,
+      images: [],
       message
     }
   }
@@ -39,14 +39,24 @@ export const requestGetImage = () => {
       }
       )
       .then(response => response.json())
-      .then((result) => {
-        console.log(result);
-        if (result.id == null) {
-          alert("L'email ou le username est deja utilisé. Veuillez réessayer")
-          dispatch(getImageError(result))
-          return Promise.reject(result)
+      .then((response) => {
+        if (response.length < 1) {
+          alert('problème de chargement des images')
+          dispatch(getImageError(response))
         } else {
-          dispatch(receiveGetImage(result))
+          let array = []
+          for (let i = 0; i < response.length; i++) {
+            let data = {}
+            const image = response[i];
+            data['description'] = image.description
+            data['id'] = image.id
+            data['extension'] = image.extension
+            data['stream'] = image.stream
+            data['userId'] = image.user_id
+            data['date'] = image.created_at
+            array.push(data)
+          }
+          dispatch(receiveGetImage(array))
           console.log("images downloaded");
         }
       }).catch(err => console.log("Error: ", err))

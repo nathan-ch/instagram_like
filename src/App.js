@@ -15,6 +15,7 @@ import { Login } from './_Pages/Login';
 import { Profile } from './_Pages/Profile';
 import { Home } from './_Pages/Home';
 import NavNav from './_Components/NavNav';
+import { PostImage } from './_Pages/PostImage';
 
 
 const App = () => {
@@ -38,6 +39,9 @@ const App = () => {
         </Route>
         <Route path="/profile">
         {isAuthenticated ? <Profile/> : <Login />}
+        </Route>
+        <Route path="/new_image">
+        {isAuthenticated ? <PostImage/> : <Login />}
         </Route>
         <Route path="/">
           {isAuthenticated ? <Home/> : <Login />}
